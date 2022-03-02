@@ -6,7 +6,7 @@
 /*   By: ldinaut <ldinaut@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/01 12:41:15 by ldinaut           #+#    #+#             */
-/*   Updated: 2022/03/01 18:45:14 by ldinaut          ###   ########.fr       */
+/*   Updated: 2022/03/02 18:31:18 by ldinaut          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,25 @@
 # include <sys/stat.h>
 # include <sys/wait.h>
 
+typedef struct s_command
+{
+	char	**arg;
+
+	char	*path_name;
+
+	int		fd;
+	int		fd2;
+
+}	t_command;
+
 char	**ft_split(char const *s1, char c);
+
+char	*ft_strdup(const char *s1);
+char	*ft_strjoin(char const *s1, char const *s2);
+char	*ft_find_path(char **envp);
+
+int		ft_memcmp(const void *s1, const void *s2, size_t n);
+
+size_t	ft_strlen(const char *str);
 
 #endif
