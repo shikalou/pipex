@@ -6,7 +6,7 @@
 /*   By: ldinaut <ldinaut@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/01 12:41:15 by ldinaut           #+#    #+#             */
-/*   Updated: 2022/03/02 18:31:18 by ldinaut          ###   ########.fr       */
+/*   Updated: 2022/03/03 16:30:58 by ldinaut          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,11 +25,12 @@
 typedef struct s_command
 {
 	char	**arg;
+	char	**path_tab;
 
 	char	*path_name;
 
-	int		fd;
-	int		fd2;
+	int		infile;
+	int		outfile;
 
 }	t_command;
 
