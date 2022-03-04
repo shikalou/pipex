@@ -5,39 +5,45 @@
 #                                                     +:+ +:+         +:+      #
 #    By: ldinaut <ldinaut@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2022/03/01 12:40:18 by ldinaut           #+#    #+#              #
-#    Updated: 2022/03/04 18:11:38 by ldinaut          ###   ########.fr        #
+#    Created: 2021/12/08 16:42:54 by ldinaut           #+#    #+#              #
+#    Updated: 2022/03/04 18:08:35 by ldinaut          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME	=	pipex
+NAME	=	libftprintf.a
 
-SRCS	=	srcs/pipex.c \
-			srcs/ft_split.c \
-			srcs/ft_free.c \
-			srcs/libft_subsitute.c \
-			srcs/pipex_utils.c
+SRCS	=	ft_printf.c\
+		ft_putc.c\
+		ft_putd.c\
+		ft_putnbrhexa_fd.c\
+		ft_putnbr_p.c\
+		ft_puts.c\
+		ft_putunbr_fd.c\
+		ft_countnb.c\
+		ft_countnb_hex.c\
+		ft_countunb.c \
+		print.c
 
-CC		=	clang
+CC	=	clang
 
-CFLAGS	=	-Wall -Wextra -Werror -g -I./includes
+CFLAGS	=	-Wall -Wextra -Werror
 
-OBJS	=	$(SRCS:%.c=%.o)
+OBJS	=	$(SRCS:.c=.o)
 
-all		:	$(NAME)
+$(NAME)	:	${OBJS}
+			ar rcs $(NAME) $(OBJS)
 
-$(NAME)	:	$(OBJS)
-		make -C ft_printf
-		$(CC) $(CFLAGS) -o $(NAME) $(OBJS) -Lft_printf -lftprintf
+all	:	$(NAME)
+
+.c.o	:
+	$(CC) $(CFLAGS) -c $< -o ${<:.c=.o}
 
 clean	:
-		make -C ft_printf clean
-		rm -rf $(OBJS)
+	rm -rf $(OBJS)
 
 fclean	:	clean
-		make -C ft_printf fclean
-		rm -rf $(NAME)
+	rm -rf $(NAME)
 
-re		:	fclean all
+re	:	fclean all
 
 .PHONY: all clean fclean re

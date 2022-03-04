@@ -6,7 +6,7 @@
 /*   By: ldinaut <ldinaut@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/01 12:41:15 by ldinaut           #+#    #+#             */
-/*   Updated: 2022/03/03 16:30:58 by ldinaut          ###   ########.fr       */
+/*   Updated: 2022/03/04 18:17:55 by ldinaut          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,13 +21,14 @@
 # include <sys/types.h>
 # include <sys/stat.h>
 # include <sys/wait.h>
+# include "../ft_printf/ft_printf.h"
 
 typedef struct s_command
 {
 	char	**arg;
 	char	**path_tab;
 
-	char	*path_name;
+	char	*path;
 
 	int		infile;
 	int		outfile;
@@ -39,8 +40,15 @@ char	**ft_split(char const *s1, char c);
 char	*ft_strdup(const char *s1);
 char	*ft_strjoin(char const *s1, char const *s2);
 char	*ft_find_path(char **envp);
+char	*ft_find_check_path(t_command *command);
+char	*ft_strchr(const char *s, int c);
 
 int		ft_memcmp(const void *s1, const void *s2, size_t n);
+
+void	ft_open(t_command *command, char **argv);
+void	ft_free_struct(t_command *command);
+void	ft_free_path_tab(t_command *command);
+void	ft_free_arg(t_command *command);
 
 size_t	ft_strlen(const char *str);
 

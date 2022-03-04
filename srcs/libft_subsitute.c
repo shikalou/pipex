@@ -1,30 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pipex_utils.c                                      :+:      :+:    :+:   */
+/*   libft_subsitute.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ldinaut <ldinaut@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/03/02 14:29:45 by ldinaut           #+#    #+#             */
-/*   Updated: 2022/03/02 17:39:28 by ldinaut          ###   ########.fr       */
+/*   Created: 2022/03/04 17:58:32 by ldinaut           #+#    #+#             */
+/*   Updated: 2022/03/04 17:58:40 by ldinaut          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 
-char	*ft_find_path(char **envp)
+char	*ft_strchr(const char *s, int c)
 {
-	int	i;
+	int			i;
+	char		d;
 
 	i = 0;
-	while (envp[i])
+	d = c;
+	while (s[i] != '\0')
 	{
-		if (ft_memcmp(envp[i], "PATH=", 5) == 0)
-			return (envp[i] + 5);
+		if (s[i] == d)
+			return (&((char *)s)[i]);
 		i++;
 	}
-	return (NULL);
+	if (c == 0)
+		return (&((char *)s)[i]);
+	return (0);
 }
+
 
 size_t	ft_strlen(const char *str)
 {
