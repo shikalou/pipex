@@ -6,7 +6,7 @@
 /*   By: ldinaut <ldinaut@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/01 12:41:15 by ldinaut           #+#    #+#             */
-/*   Updated: 2022/03/04 18:17:55 by ldinaut          ###   ########.fr       */
+/*   Updated: 2022/03/04 19:09:52 by ldinaut          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ char	*ft_strjoin(char const *s1, char const *s2);
 char	*ft_find_path(char **envp);
 char	*ft_find_check_path(t_command *command);
 char	*ft_strchr(const char *s, int c);
+char	*ft_check_slash(t_command *command);
 
 int		ft_memcmp(const void *s1, const void *s2, size_t n);
 

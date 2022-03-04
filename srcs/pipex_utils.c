@@ -6,10 +6,9 @@
 /*   By: ldinaut <ldinaut@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/04 17:59:04 by ldinaut           #+#    #+#             */
-/*   Updated: 2022/03/04 17:59:07 by ldinaut          ###   ########.fr       */
+/*   Updated: 2022/03/04 19:09:43 by ldinaut          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 
 #include "pipex.h"
 
@@ -33,6 +32,14 @@ void	ft_open(t_command *command, char **argv)
 	command->outfile = open(argv[4], O_CREAT | O_WRONLY | O_TRUNC, 0644);
 }
 
+char	*ft_check_slash(t_command *command)
+{
+	if (access(command->arg[0], X_OK) == 0)
+		return (command->arg[0]);
+	ft_printf("no such file or directory: %s\n", command->arg[0]);
+	return (NULL);
+}
+
 char	*ft_find_check_path(t_command *command)
 {
 	int		i;
@@ -41,9 +48,8 @@ char	*ft_find_check_path(t_command *command)
 	i = 0;
 	if (ft_strchr(command->arg[0], '/'))
 	{
-		if (access(command->arg[0], X_OK) == 0)
-			return (command->arg[0]);
-		printf("no such file or directory: %s\n", command->arg[0]);
+		if (ft_check_slash(command) != NULL)
+			return (ft_check_slash(command));
 		return (NULL);
 	}
 	else
@@ -58,7 +64,7 @@ char	*ft_find_check_path(t_command *command)
 			i++;
 			free(command->path);
 		}
-		printf("command not found: %s\n", command->arg[0]);
+		ft_printf("command not found: %s\n", command->arg[0]);
 		return (NULL);
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: ldinaut <ldinaut@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/04 17:58:32 by ldinaut           #+#    #+#             */
-/*   Updated: 2022/03/04 17:58:40 by ldinaut          ###   ########.fr       */
+/*   Updated: 2022/03/04 18:49:15 by ldinaut          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,6 @@ char	*ft_strchr(const char *s, int c)
 		return (&((char *)s)[i]);
 	return (0);
 }
-
 
 size_t	ft_strlen(const char *str)
 {
