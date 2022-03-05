@@ -6,7 +6,7 @@
 /*   By: ldinaut <ldinaut@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/04 17:59:04 by ldinaut           #+#    #+#             */
-/*   Updated: 2022/03/05 16:07:19 by ldinaut          ###   ########.fr       */
+/*   Updated: 2022/03/05 19:21:44 by ldinaut          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ char	*ft_check_slash(t_command *command)
 {
 	if (access(command->arg[0], X_OK) == 0)
 		return (command->arg[0]);
-	ft_printf("no such file or directory: %s\n", command->arg[0]);
+	ft_printf("%s: %s\n", strerror(errno), command->arg[0]);
 	return (NULL);
 }
 
@@ -66,5 +66,20 @@ char	*ft_find_check_path(t_command *command)
 		}
 		ft_printf("command not found: %s\n", command->arg[0]);
 		return (NULL);
+	}
+}
+
+void	ft_close(t_command *command, int pipefd[2], int i)
+{
+	if (i == 3)
+	{
+		close(command->outfile);
+		close(command->infile);
+		close(pipefd[1]);
+	}
+	else if (i == 2)
+	{
+		close(command->outfile);
+		close(pipefd[0]);
 	}
 }

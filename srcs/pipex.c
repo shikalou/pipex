@@ -6,7 +6,7 @@
 /*   By: ldinaut <ldinaut@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/04 15:11:09 by ldinaut           #+#    #+#             */
-/*   Updated: 2022/03/05 16:09:32 by ldinaut          ###   ########.fr       */
+/*   Updated: 2022/03/05 19:21:55 by ldinaut          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,9 +29,12 @@ void	ft_exec_two(char **argv, char **envp, t_command *command, int pipefd[2])
 			command->arg[0] = ft_strdup(command->path);
 			dup2(pipefd[0], 0);
 			dup2(command->outfile, 1);
+			close(command->outfile);
+			close(pipefd[0]);
 			execve(command->path, command->arg, envp);
 			exit(1);
 		}
+		close(command->outfile);
 		ft_free_struct(command);
 		exit(1);
 	}
@@ -55,9 +58,11 @@ void	ft_exec_one(t_command *command, char **argv, char **envp, int pipefd[2])
 			close(pipefd[0]);
 			dup2(command->infile, 0);
 			dup2(pipefd[1], 1);
+			ft_close(command, pipefd, 3);
 			execve(command->path, command->arg, envp);
 			exit(1);
 		}
+		ft_close(command, pipefd, 2);
 		ft_free_struct(command);
 		exit(1);
 	}

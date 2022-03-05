@@ -6,7 +6,7 @@
 /*   By: ldinaut <ldinaut@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/01 12:41:15 by ldinaut           #+#    #+#             */
-/*   Updated: 2022/03/04 19:09:52 by ldinaut          ###   ########.fr       */
+/*   Updated: 2022/03/05 18:54:10 by ldinaut          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 # include <stdio.h>
 # include <string.h>
 # include <fcntl.h>
+# include <errno.h>
 # include <sys/types.h>
 # include <sys/stat.h>
 # include <sys/wait.h>
@@ -50,6 +51,7 @@ void	ft_open(t_command *command, char **argv);
 void	ft_free_struct(t_command *command);
 void	ft_free_path_tab(t_command *command);
 void	ft_free_arg(t_command *command);
+void	ft_close(t_command *command, int pipefd[2], int i);
 
 size_t	ft_strlen(const char *str);
 
