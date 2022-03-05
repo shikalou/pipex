@@ -6,7 +6,7 @@
 /*   By: ldinaut <ldinaut@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/04 15:11:09 by ldinaut           #+#    #+#             */
-/*   Updated: 2022/03/04 17:46:42 by ldinaut          ###   ########.fr       */
+/*   Updated: 2022/03/05 16:09:32 by ldinaut          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,21 +70,25 @@ int	main(int argc, char **argv, char **envp)
 	t_command	*command;
 	char		*path;
 
-	(void) argc;
-	command = malloc(sizeof(t_command));
-	path = ft_find_path(envp);
-	command->path_tab = ft_split(path, ':');
-	ft_open(command, argv);
-	if (pipe(pipefd) < 0)
-		return (1);
-	ft_exec_one(command, argv, envp, pipefd);
-	close(command->infile);
-	close(pipefd[1]);
-	ft_exec_two(argv, envp, command, pipefd);
-	close(command->outfile);
-	close(pipefd[0]);
-	wait(NULL);
-	wait(NULL);
-	ft_free_struct(command);
-	return (0);
+	if (argc == 5)
+	{
+		command = malloc(sizeof(t_command));
+		path = ft_find_path(envp);
+		command->path_tab = ft_split(path, ':');
+		ft_open(command, argv);
+		if (pipe(pipefd) < 0)
+			return (1);
+		ft_exec_one(command, argv, envp, pipefd);
+		close(command->infile);
+		close(pipefd[1]);
+		ft_exec_two(argv, envp, command, pipefd);
+		close(command->outfile);
+		close(pipefd[0]);
+		wait(NULL);
+		wait(NULL);
+		ft_free_struct(command);
+		return (0);
+	}
+	ft_printf("[infile] [cmd1] [cmd2] [outfile]\n");
+	return (1);
 }
