@@ -6,7 +6,7 @@
 #    By: ldinaut <ldinaut@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/03/01 12:40:18 by ldinaut           #+#    #+#              #
-#    Updated: 2022/03/04 18:11:38 by ldinaut          ###   ########.fr        #
+#    Updated: 2022/03/07 17:40:17 by ldinaut          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,17 +18,26 @@ SRCS	=	srcs/pipex.c \
 			srcs/libft_subsitute.c \
 			srcs/pipex_utils.c
 
+SRCSBONUS	=	bonus/pipex_bonus.c \
+			bonus/pipex_utils_bonus.c \
+			bonus/ft_split.c
+
 CC		=	clang
 
 CFLAGS	=	-Wall -Wextra -Werror -g -I./includes
 
 OBJS	=	$(SRCS:%.c=%.o)
 
+OBJSBONUS	=	$(SRCSBONUS:%.c=%.o)
+
 all		:	$(NAME)
 
 $(NAME)	:	$(OBJS)
 		make -C ft_printf
 		$(CC) $(CFLAGS) -o $(NAME) $(OBJS) -Lft_printf -lftprintf
+
+bonus	:	%(OBJSBONUS)
+		$(NAME) $(OBJSBONUS)
 
 clean	:
 		make -C ft_printf clean
@@ -40,4 +49,4 @@ fclean	:	clean
 
 re		:	fclean all
 
-.PHONY: all clean fclean re
+.PHONY: all clean fclean re bonus
