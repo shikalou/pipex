@@ -6,7 +6,7 @@
 /*   By: ldinaut <ldinaut@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/04 15:11:09 by ldinaut           #+#    #+#             */
-/*   Updated: 2022/03/07 17:44:30 by ldinaut          ###   ########.fr       */
+/*   Updated: 2022/03/10 14:50:04 by ldinaut          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,8 @@
 
 void	ft_exec_two(char **argv, char **envp, t_command *command, int pipefd[2])
 {
-	int		i;
 	pid_t	pid;
 
-	i = 0;
 	pid = fork();
 	if (pid < 0)
 		exit (1);
@@ -42,10 +40,8 @@ void	ft_exec_two(char **argv, char **envp, t_command *command, int pipefd[2])
 
 void	ft_exec_one(t_command *command, char **argv, char **envp, int pipefd[2])
 {
-	int		i;
 	pid_t	pid;
 
-	i = 0;
 	pid = fork();
 	if (pid < 0)
 		exit (1);
