@@ -6,7 +6,7 @@
 /*   By: ldinaut <ldinaut@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/07 15:02:00 by ldinaut           #+#    #+#             */
-/*   Updated: 2022/03/10 18:03:38 by ldinaut          ###   ########.fr       */
+/*   Updated: 2022/03/11 19:24:25 by ldinaut          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,9 @@ typedef struct s_cmd
 void	ft_exec_one(t_cmd *cmd, char **argv, char **envp);
 void	ft_exec_middle(t_cmd *cmd, char *argv, char **envp);
 void	ft_exec_last(t_cmd *cmd, char *argv, char **envp);
-void	ft_open(t_cmd *cmd, char **argv, int argc);
+void	ft_free_struct(t_cmd *cmd);
+void	ft_free_path_tab(t_cmd *cmd);
+void	ft_free_arg_path(t_cmd *cmd);
 
 char	*ft_find_path(char **envp);
 char	*ft_find_check_path(t_cmd *cmd);
@@ -53,6 +55,7 @@ char	*ft_strjoin(char const *s1, char const *s2);
 size_t	ft_strlen(const char *str);
 
 int		ft_memcmp(const void *s1, const void *s2, size_t n);
+int		ft_open(t_cmd *cmd, char **argv, int argc);
 
 char	**ft_split(char const *s1, char c);
 

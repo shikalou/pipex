@@ -6,7 +6,7 @@
 #    By: ldinaut <ldinaut@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/03/01 12:40:18 by ldinaut           #+#    #+#              #
-#    Updated: 2022/03/10 16:33:14 by ldinaut          ###   ########.fr        #
+#    Updated: 2022/03/11 14:21:35 by ldinaut          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,7 +21,8 @@ SRCS	=	srcs/pipex.c \
 SRCSBONUS	=	bonus/pipex_bonus.c \
 				bonus/pipex_utils_bonus.c \
 				bonus/libft_substitute_bonus.c \
-				bonus/ft_split.c
+				bonus/ft_split.c \
+				bonus/ft_free.c
 
 CC		=	clang
 

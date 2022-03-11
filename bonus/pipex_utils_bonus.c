@@ -6,7 +6,7 @@
 /*   By: ldinaut <ldinaut@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/07 16:05:55 by ldinaut           #+#    #+#             */
-/*   Updated: 2022/03/10 18:10:23 by ldinaut          ###   ########.fr       */
+/*   Updated: 2022/03/11 19:26:33 by ldinaut          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,6 @@ char	*ft_find_check_path(t_cmd *cmd)
 		{
 			temp = ft_strjoin(cmd->path_tab[i], "/");
 			cmd->path = ft_strjoin(temp, cmd->arg_path[0]);
-			//printf("path = %s\n", cmd->path);
 			free(temp);
 			if (access(cmd->path, X_OK) == 0)
 				return (cmd->path);
@@ -64,8 +63,13 @@ char	*ft_find_path(char **envp)
 	return (NULL);
 }
 
-void	ft_open(t_cmd *cmd, char **argv, int argc)
+int	ft_open(t_cmd *cmd, char **argv, int argc)
 {
 	cmd->infile = open(argv[1], O_RDONLY);
+	if (cmd->infile == -1)
+	{
+		ft_printf("no such file or directory: %s\n", argv[1]);
+		return (0);
+	}
 	cmd->outfile = open(argv[argc - 1], O_CREAT | O_WRONLY | O_TRUNC, 0644);
 }
