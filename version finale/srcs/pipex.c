@@ -6,7 +6,7 @@
 /*   By: ldinaut <ldinaut@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/04 15:11:09 by ldinaut           #+#    #+#             */
-/*   Updated: 2022/03/16 20:47:19 by ldinaut          ###   ########.fr       */
+/*   Updated: 2022/03/18 18:29:43 by ldinaut          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,11 +24,12 @@ void	ft_exec_last(t_cmd *cmd, char *argv, char **envp)
 	{
 		if (ft_find_check_path(cmd) != NULL)
 		{
+			free(cmd->arg_path[0]);
 			cmd->arg_path[0] = ft_strdup(cmd->path);
 			dup2(cmd->pipefd[0], 0);
 			dup2(cmd->outfile, 1);
 			execve(cmd->path, cmd->arg_path, envp);
-			exit(1);
+			free(cmd->path);
 		}
 		close(cmd->outfile);
 		ft_free_struct(cmd);
@@ -52,18 +53,19 @@ void	ft_exec_middle(t_cmd *cmd, char *argv, char **envp)
 	{
 		if (ft_find_check_path(cmd) != NULL)
 		{
+			free(cmd->arg_path[0]);
 			cmd->arg_path[0] = ft_strdup(cmd->path);
 			dup2(cmd->fd_temp, 0);
 			close(cmd->pipefd[0]);
 			dup2(cmd->pipefd[1], 1);
 			execve(cmd->path, cmd->arg_path, envp);
+			free(cmd->path);
 		}
 		ft_free_struct(cmd);
 		exit(1);
 	}
 	ft_free_arg_path(cmd);
-	close(cmd->pipefd[1]);
-	close(cmd->fd_temp);
+	ft_close(cmd, 1);
 }
 
 void	ft_exec_one(t_cmd *cmd, char **argv, char **envp)
@@ -78,21 +80,20 @@ void	ft_exec_one(t_cmd *cmd, char **argv, char **envp)
 	{
 		if (ft_find_check_path(cmd) != NULL)
 		{
+			free(cmd->arg_path[0]);
 			cmd->arg_path[0] = ft_strdup(cmd->path);
 			dup2(cmd->infile, 0);
 			close(cmd->pipefd[0]);
 			dup2(cmd->pipefd[1], 1);
 			execve(cmd->path, cmd->arg_path, envp);
-			exit(1);
+			free(cmd->path);
 		}
-		close(cmd->infile);
-		close(cmd->pipefd[1]);
+		ft_close(cmd, 2);
 		ft_free_struct(cmd);
 		exit(1);
 	}
 	ft_free_arg_path(cmd);
-	close(cmd->pipefd[1]);
-	close(cmd->infile);
+	ft_close(cmd, 2);
 }
 
 void	ft_wait(int argc)

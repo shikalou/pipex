@@ -6,7 +6,7 @@
 /*   By: ldinaut <ldinaut@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/01 12:41:15 by ldinaut           #+#    #+#             */
-/*   Updated: 2022/03/16 20:39:16 by ldinaut          ###   ########.fr       */
+/*   Updated: 2022/03/18 19:02:34 by ldinaut          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,8 @@ void	ft_free_path_tab(t_cmd *cmd);
 void	ft_free_arg_path(t_cmd *cmd);
 void	ft_here_doc(int argc, char **argv, t_cmd *cmd, char **envp);
 void	ft_wait(int argc);
-void	ft_close(t_cmd *cmd);
+void	ft_close(t_cmd *cmd, int i);
+void	ft_dup(t_cmd *cmd);
 
 char	*ft_find_path(char **envp);
 char	*ft_find_check_path(t_cmd *cmd);

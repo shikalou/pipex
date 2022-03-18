@@ -6,7 +6,7 @@
 /*   By: ldinaut <ldinaut@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/04 17:59:04 by ldinaut           #+#    #+#             */
-/*   Updated: 2022/03/16 20:46:47 by ldinaut          ###   ########.fr       */
+/*   Updated: 2022/03/18 16:11:37 by ldinaut          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,11 +30,7 @@ char	*ft_find_check_path(t_cmd *cmd)
 
 	i = 0;
 	if (ft_strchr(cmd->arg_path[0], '/'))
-	{
-		if (ft_check_slash(cmd) != NULL)
-			return (ft_check_slash(cmd));
-		return (NULL);
-	}
+		return (ft_check_slash(cmd));
 	else
 	{
 		while (cmd->path_tab[i] != NULL)

@@ -6,7 +6,7 @@
 /*   By: ldinaut <ldinaut@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/14 16:54:07 by ldinaut           #+#    #+#             */
-/*   Updated: 2022/03/17 13:17:55 by ldinaut          ###   ########.fr       */
+/*   Updated: 2022/03/18 19:03:51 by ldinaut          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,15 +24,15 @@ void	ft_exec_two(t_cmd *cmd, char **argv, char **envp, int argc)
 	{
 		if (ft_find_check_path(cmd) != NULL)
 		{
+			free(cmd->arg_path[0]);
 			cmd->arg_path[0] = ft_strdup(cmd->path);
 			close(cmd->pipefd[1]);
 			dup2(cmd->pipefd[0], 0);
 			dup2(cmd->outfile, 1);
 			execve(cmd->path, cmd->arg_path, envp);
-			exit(1);
+			free(cmd->path);
 		}
-		close(cmd->outfile);
-		close(cmd->pipefd[0]);
+		ft_close(cmd, 3);
 		ft_free_struct(cmd);
 		exit(1);
 	}
@@ -40,10 +40,29 @@ void	ft_exec_two(t_cmd *cmd, char **argv, char **envp, int argc)
 	close(cmd->outfile);
 }
 
-void	ft_close(t_cmd *cmd)
+void	ft_close(t_cmd *cmd, int i)
 {
-	close(cmd->fd_temp);
-	close(cmd->pipefd[1]);
+	if (i == 1)
+	{
+		close(cmd->fd_temp);
+		close(cmd->pipefd[1]);
+	}
+	if (i == 2)
+	{
+		close(cmd->infile);
+		close(cmd->pipefd[1]);
+	}
+	if (i == 3)
+	{
+		close(cmd->outfile);
+		close(cmd->pipefd[0]);
+	}
+}
+
+void	ft_dup(t_cmd *cmd)
+{
+	dup2(cmd->fd_temp, 0);
+	dup2(cmd->pipefd[1], 1);
 }
 
 void	ft_exec_cmd(t_cmd *cmd, char **argv, char **envp)
@@ -60,19 +79,19 @@ void	ft_exec_cmd(t_cmd *cmd, char **argv, char **envp)
 	{
 		if (ft_find_check_path(cmd) != NULL)
 		{
+			free(cmd->arg_path[0]);
 			cmd->arg_path[0] = ft_strdup(cmd->path);
-			dup2(cmd->fd_temp, 0);
 			close(cmd->pipefd[0]);
-			dup2(cmd->pipefd[1], 1);
+			ft_dup(cmd);
 			execve(cmd->path, cmd->arg_path, envp);
-			exit(1);
+			free(cmd->path);
 		}
-		ft_close(cmd);
+		ft_close(cmd, 1);
 		ft_free_struct(cmd);
 		exit(1);
 	}
 	ft_free_arg_path(cmd);
-	ft_close(cmd);
+	ft_close(cmd, 1);
 }
 
 void	ft_here_doc(int argc, char **argv, t_cmd *cmd, char **envp)
