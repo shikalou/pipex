@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft_substitute.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ldinaut <ldinaut@student.42.fr>            +#+  +:+       +#+        */
+/*   By: macbook <macbook@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/04 17:58:32 by ldinaut           #+#    #+#             */
-/*   Updated: 2022/03/21 17:23:44 by ldinaut          ###   ########.fr       */
+/*   Updated: 2022/03/21 21:46:00 by macbook          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ char	*ft_strjoin(char const *s1, char const *s2)
 	int			k;
 	char		*dest;
 
-	i = 0;
+	i = -1;
 	j = 0;
 	if (!s2 || !s1)
 		return (NULL);
@@ -77,11 +77,8 @@ char	*ft_strjoin(char const *s1, char const *s2)
 	dest = malloc(sizeof(char) * (k + 1));
 	if (!dest)
 		return (NULL);
-	while (s1 && s1[i])
-	{
+	while (s1 && s1[++i])
 		dest[i] = s1[i];
-		i++;
-	}
 	while (s2 && s2[j])
 	{
 		dest[i] = s2[j];

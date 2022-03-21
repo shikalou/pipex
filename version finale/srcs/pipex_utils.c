@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ldinaut <ldinaut@student.42.fr>            +#+  +:+       +#+        */
+/*   By: macbook <macbook@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/04 17:59:04 by ldinaut           #+#    #+#             */
-/*   Updated: 2022/03/21 17:29:06 by ldinaut          ###   ########.fr       */
+/*   Updated: 2022/03/21 21:41:48 by macbook          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ int	ft_open(t_cmd *cmd, char **argv, int argc)
 	cmd->infile = open(argv[1], O_RDONLY);
 	if (cmd->infile == -1)
 	{
-		ft_printf("no such file or directory: %s\n", argv[1]);
+		ft_printf("%s: %s\n", strerror(errno), argv[1]);
 		i++;
 	}
 	cmd->outfile = open(argv[argc - 1], O_CREAT | O_WRONLY | O_TRUNC, 0644);
