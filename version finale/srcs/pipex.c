@@ -6,7 +6,7 @@
 /*   By: ldinaut <ldinaut@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/04 15:11:09 by ldinaut           #+#    #+#             */
-/*   Updated: 2022/03/18 18:29:43 by ldinaut          ###   ########.fr       */
+/*   Updated: 2022/03/21 17:20:43 by ldinaut          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	ft_exec_last(t_cmd *cmd, char *argv, char **envp)
 		perror("fork");
 	else if (pid == 0)
 	{
-		if (ft_find_check_path(cmd) != NULL)
+		if (cmd->outfile != -1 && ft_find_check_path(cmd) != NULL )
 		{
 			free(cmd->arg_path[0]);
 			cmd->arg_path[0] = ft_strdup(cmd->path);
@@ -30,12 +30,13 @@ void	ft_exec_last(t_cmd *cmd, char *argv, char **envp)
 			dup2(cmd->outfile, 1);
 			execve(cmd->path, cmd->arg_path, envp);
 			free(cmd->path);
+			close(cmd->outfile);
 		}
-		close(cmd->outfile);
 		ft_free_struct(cmd);
 		exit(1);
 	}
-	close(cmd->outfile);
+	if (cmd->outfile != -1)
+		close(cmd->outfile);
 	close(cmd->pipefd[0]);
 }
 

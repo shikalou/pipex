@@ -6,7 +6,7 @@
 /*   By: ldinaut <ldinaut@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/04 14:28:53 by ldinaut           #+#    #+#             */
-/*   Updated: 2022/03/18 14:23:15 by ldinaut          ###   ########.fr       */
+/*   Updated: 2022/03/21 17:19:59 by ldinaut          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,9 @@ void	ft_free_path_tab(t_cmd *cmd)
 
 void	ft_free_struct(t_cmd *cmd)
 {
-	ft_free_path_tab(cmd);
-	ft_free_arg_path(cmd);
+	if (cmd->path_tab)
+		ft_free_path_tab(cmd);
+	if (cmd->arg_path)
+		ft_free_arg_path(cmd);
 	free(cmd);
 }

@@ -6,7 +6,7 @@
 /*   By: ldinaut <ldinaut@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/04 17:59:04 by ldinaut           #+#    #+#             */
-/*   Updated: 2022/03/18 16:11:37 by ldinaut          ###   ########.fr       */
+/*   Updated: 2022/03/21 17:29:06 by ldinaut          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ char	*ft_find_check_path(t_cmd *cmd)
 			temp = ft_strjoin(cmd->path_tab[i], "/");
 			cmd->path = ft_strjoin(temp, cmd->arg_path[0]);
 			free(temp);
-			if (access(cmd->path, X_OK) == 0)
+			if (cmd->path && access(cmd->path, X_OK) == 0)
 				return (cmd->path);
 			i++;
 			free(cmd->path);
@@ -74,6 +74,8 @@ int	ft_open(t_cmd *cmd, char **argv, int argc)
 		i++;
 	}
 	cmd->outfile = open(argv[argc - 1], O_CREAT | O_WRONLY | O_TRUNC, 0644);
+	if (cmd->outfile == -1)
+		ft_printf("%s : %s\n", strerror(errno), argv[argc - 1]);
 	return (i);
 }
 
@@ -87,5 +89,7 @@ t_cmd	*ft_init_struct(char **envp)
 		return (NULL);
 	env = ft_find_path(envp);
 	cmd->path_tab = ft_split(env, ':');
+	cmd->path = NULL;
+	cmd->arg_path = NULL;
 	return (cmd);
 }
