@@ -6,7 +6,7 @@
 /*   By: ldinaut <ldinaut@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/14 16:54:07 by ldinaut           #+#    #+#             */
-/*   Updated: 2022/03/18 19:03:51 by ldinaut          ###   ########.fr       */
+/*   Updated: 2022/03/25 14:15:03 by ldinaut          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	ft_exec_two(t_cmd *cmd, char **argv, char **envp, int argc)
 		perror("fork");
 	else if (pid == 0)
 	{
-		if (ft_find_check_path(cmd) != NULL)
+		if (cmd->outfile != -1 && ft_find_check_path(cmd) != NULL)
 		{
 			free(cmd->arg_path[0]);
 			cmd->arg_path[0] = ft_strdup(cmd->path);
@@ -36,8 +36,7 @@ void	ft_exec_two(t_cmd *cmd, char **argv, char **envp, int argc)
 		ft_free_struct(cmd);
 		exit(1);
 	}
-	close(cmd->pipefd[0]);
-	close(cmd->outfile);
+	ft_close(cmd, 3);
 }
 
 void	ft_close(t_cmd *cmd, int i)
@@ -54,7 +53,8 @@ void	ft_close(t_cmd *cmd, int i)
 	}
 	if (i == 3)
 	{
-		close(cmd->outfile);
+		if (cmd->outfile != -1)
+			close(cmd->outfile);
 		close(cmd->pipefd[0]);
 	}
 }
@@ -102,6 +102,8 @@ void	ft_here_doc(int argc, char **argv, t_cmd *cmd, char **envp)
 	i = -1;
 	pipe(cmd->pipefd);
 	cmd->outfile = open(argv[argc -1], O_CREAT | O_WRONLY | O_APPEND, 0644);
+	if (cmd->outfile == -1)
+		ft_printf("%s : %s\n", strerror(errno), argv[argc - 1]);
 	cmd->limiter = (ft_strjoin(argv[2], "\n"));
 	line = get_next_line(0);
 	while (ft_memcmp(line, cmd->limiter, ft_strlen(line)) != 0)
@@ -118,6 +120,5 @@ void	ft_here_doc(int argc, char **argv, t_cmd *cmd, char **envp)
 		ft_exec_middle(cmd, argv[i + 4], envp);
 	ft_exec_two(cmd, argv, envp, argc);
 	ft_wait(argc - 4);
-	ft_free_struct(cmd);
-	exit(1);
+	ft_exit(cmd);
 }

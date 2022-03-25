@@ -6,7 +6,7 @@
 #    By: ldinaut <ldinaut@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/03/01 12:40:18 by ldinaut           #+#    #+#              #
-#    Updated: 2022/03/16 19:01:59 by ldinaut          ###   ########.fr        #
+#    Updated: 2022/03/25 14:04:30 by ldinaut          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,6 +18,7 @@ SRCS	=	srcs/pipex.c \
 			srcs/libft_substitute.c \
 			srcs/ft_here_doc.c \
 			srcs/pipex_utils.c \
+			srcs/ft_exit.c \
 			gnl/get_next_line_bonus.c \
 			gnl/get_next_line_utils_bonus.c
 
