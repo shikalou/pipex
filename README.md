@@ -2,8 +2,7 @@
 
 ## How to recreate the shell pipe in C !
 
-The project goal is to reproduce the pipe behaviour in a command line. 
-
+The project goal is to reproduce the pipe behaviour in a command line with the pipe() command of the libc.
 
 ### How to run the program
 
