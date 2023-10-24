@@ -6,41 +6,43 @@
 /*   By: ldinaut <ldinaut@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/04 14:28:53 by ldinaut           #+#    #+#             */
-/*   Updated: 2022/03/04 15:01:09 by ldinaut          ###   ########.fr       */
+/*   Updated: 2022/03/21 17:19:59 by ldinaut          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 
-void	ft_free_arg(t_command *command)
+void	ft_free_arg_path(t_cmd *cmd)
 {
 	int	i;
 
 	i = 0;
-	while (command->arg[i])
+	while (cmd->arg_path[i])
 	{
-		free(command->arg[i]);
+		free(cmd->arg_path[i]);
 		i++;
 	}
-	free(command->arg);
+	free(cmd->arg_path);
 }
 
-void	ft_free_path_tab(t_command *command)
+void	ft_free_path_tab(t_cmd *cmd)
 {
 	int	i;
 
 	i = 0;
-	while (command->path_tab[i])
+	while (cmd->path_tab[i])
 	{
-		free(command->path_tab[i]);
+		free(cmd->path_tab[i]);
 		i++;
 	}
-	free(command->path_tab);
+	free(cmd->path_tab);
 }
 
-void	ft_free_struct(t_command *command)
+void	ft_free_struct(t_cmd *cmd)
 {
-	ft_free_path_tab(command);
-	ft_free_arg(command);
-	free(command);
+	if (cmd->path_tab)
+		ft_free_path_tab(cmd);
+	if (cmd->arg_path)
+		ft_free_arg_path(cmd);
+	free(cmd);
 }
